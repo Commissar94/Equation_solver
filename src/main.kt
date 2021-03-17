@@ -8,8 +8,10 @@ fun main() {
 
     val scanner = Scanner(System.`in`)
     val expression: Expression = Expression(scanner.nextDouble(), scanner.nextDouble(), scanner.nextDouble())
-    val discriminant: Discriminant = Discriminant(expression.a, expression.b, expression.c)
-    Calculation(expression.a, expression.b, discriminant.d)
+    if (!expression.zeroChecker(expression.a)) {
+        val discriminant: Discriminant = Discriminant(expression.a, expression.b, expression.c)
+        Calculation(expression.a, expression.b, discriminant.d)
+    }
 }
 
 class Calculation(_a: Double, _b: Double, _d: Double) {
@@ -56,9 +58,9 @@ class Calculation(_a: Double, _b: Double, _d: Double) {
 
 class Discriminant(_a: Double, _b: Double, _c: Double) {
 
-    val a = _a
-    val b = _b
-    val c = _c
+    private val a = _a
+    private val b = _b
+    private val c = _c
     var d: Double = 0.0
 
     init {
@@ -72,4 +74,15 @@ class Expression(_a: Double, _b: Double, _c: Double) {
     val a = _a
     val b = _b
     val c = _c
+
+    init {
+        if (zeroChecker(a)) {
+            println("a can't be 0")
+        }
+    }
+
+    fun zeroChecker(_a: Double): Boolean {
+        return _a == 0.0
+    }
 }
+
